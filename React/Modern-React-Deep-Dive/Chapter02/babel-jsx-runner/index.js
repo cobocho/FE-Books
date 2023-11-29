@@ -1,9 +1,9 @@
 const foo = () => {
-	console.log('hi');
+  console.log('hi');
 };
 
 const ComponentA = (
-	<div>
-		<A onClick={onclick}>click!</A>
-	</div>
+  <div>
+    <A onClick={onclick}>click!</A>
+  </div>
 );

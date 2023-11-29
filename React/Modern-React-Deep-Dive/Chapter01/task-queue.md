@@ -28,8 +28,8 @@
 setTimeout(() => console.log(1), 0);
 
 Promise.resolve()
-	.then(() => console.log(2))
-	.then(() => console.log(3));
+  .then(() => console.log(2))
+  .then(() => console.log(3));
 ```
 
 위 코드의 경우 실제로 실행시키면 `2`, `3`, `1`의 순서로 출력된다.
@@ -43,39 +43,39 @@ const microtask = document.querySelector('#microtask');
 const macroMicro = document.querySelector('#macro_micro');
 
 sync.addEventListener('click', () => {
-	for (let i = 0; i < 100000; i++) {
-		sync.innerHTML = i;
-	}
+  for (let i = 0; i < 100000; i++) {
+    sync.innerHTML = i;
+  }
 });
 
 macrotask.addEventListener('click', () => {
-	for (let i = 0; i < 100000; i++) {
-		setTimeout(() => {
-			macrotask.innerHTML = i;
-		}, 0);
-	}
+  for (let i = 0; i < 100000; i++) {
+    setTimeout(() => {
+      macrotask.innerHTML = i;
+    }, 0);
+  }
 });
 
 microtask.addEventListener('click', () => {
-	for (let i = 0; i < 100000; i++) {
-		queueMicrotask(() => {
-			microtask.innerHTML = i;
-		});
-	}
+  for (let i = 0; i < 100000; i++) {
+    queueMicrotask(() => {
+      microtask.innerHTML = i;
+    });
+  }
 });
 
 macroMicro.addEventListener('click', () => {
-	for (let i = 0; i < 100000; i++) {
-		sync.innerHTML = i;
+  for (let i = 0; i < 100000; i++) {
+    sync.innerHTML = i;
 
-		setTimeout(() => {
-			macrotask.innerHTML = i;
-		}, 0);
+    setTimeout(() => {
+      macrotask.innerHTML = i;
+    }, 0);
 
-		queueMicrotask(() => {
-			microtask.innerHTML = i;
-		});
-	}
+    queueMicrotask(() => {
+      microtask.innerHTML = i;
+    });
+  }
 });
 ```
 

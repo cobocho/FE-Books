@@ -16,26 +16,26 @@ let aArr = null;
 let bArr = null;
 
 const heavyJob = () => {
-	const longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
-	console.log(aArr === longArr);
-	console.log(longArr.length);
-	aArr = longArr;
+  const longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
+  console.log(aArr === longArr);
+  console.log(longArr.length);
+  aArr = longArr;
 };
 
 const heavyJobWithClosure = () => {
-	const longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
-	return () => {
-		console.log(bArr === longArr);
-		console.log(longArr.length);
-		bArr = longArr;
-	};
+  const longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
+  return () => {
+    console.log(bArr === longArr);
+    console.log(longArr.length);
+    bArr = longArr;
+  };
 };
 
 const innerFunc = heavyJobWithClosure();
 
 a.addEventListener('click', heavyJob);
 b.addEventListener('click', () => {
-	innerFunc();
+  innerFunc();
 });
 ```
 
@@ -54,10 +54,10 @@ A 방법으로는 일반적인 함수로 처리되고, B 방법으로는 클로�
 let aArr = null;
 
 const heavyJob = () => {
-	const longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
-	console.log(aArr === longArr);
-	console.log(longArr.length);
-	aArr = longArr;
+  const longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
+  console.log(aArr === longArr);
+  console.log(longArr.length);
+  aArr = longArr;
 };
 ```
 
@@ -75,12 +75,12 @@ const heavyJob = () => {
 let bArr = null;
 
 const heavyJobWithClosure = () => {
-	const longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
-	return () => {
-		console.log(bArr === longArr);
-		console.log(longArr.length);
-		bArr = longArr;
-	};
+  const longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
+  return () => {
+    console.log(bArr === longArr);
+    console.log(longArr.length);
+    bArr = longArr;
+  };
 };
 ```
 
@@ -88,11 +88,11 @@ const heavyJobWithClosure = () => {
 
 ```js
 const heavyJobWithClosure = () => {
-	let longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
-	return () => {
-		console.log(longArr.length);
-		longArr = null;
-	};
+  let longArr = Array.from({ length: 10000000 }, (_, i) => i + 1);
+  return () => {
+    console.log(longArr.length);
+    longArr = null;
+  };
 };
 ```
 

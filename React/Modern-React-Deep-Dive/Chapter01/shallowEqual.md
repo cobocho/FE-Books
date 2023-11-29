@@ -7,7 +7,7 @@
 익스플로러를 위한 폴리필 코드
 */
 function is(x: any, y: any) {
-	return (x === y && (x !== 0 || 1 / x === 1 / y)) || (x !== x && y !== y);
+  return (x === y && (x !== 0 || 1 / x === 1 / y)) || (x !== x && y !== y);
 }
 
 const objectIs: (x: any, y: any) => boolean = typeof Object.is === 'function' ? Object.is : is;
@@ -22,32 +22,32 @@ import is from './objectIs';
 import hasOwnProperty from './hasOwnProperty';
 
 function shallowEqual(objA: mixed, objB: mixed): boolean {
-	// Object.is를 통해 단순 비교를 진행한다.
-	if (is(objA, objB)) {
-		return true;
-	}
+  // Object.is를 통해 단순 비교를 진행한다.
+  if (is(objA, objB)) {
+    return true;
+  }
 
-	if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-		return false;
-	}
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
 
-	const keysA = Object.keys(objA);
-	const keysB = Object.keys(objB);
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
 
-	// 키의 개수가 다르면 false를 반환한다.
-	if (keysA.length !== keysB.length) {
-		return false;
-	}
+  // 키의 개수가 다르면 false를 반환한다.
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
 
-	// A의 키를 기준으로, B의 키 유무를 판별하고 값을 비교한다.
-	for (let i = 0; i < keysA.length; i++) {
-		const currentKey = keysA[i];
-		if (!hasOwnProperty.call(objB, currentKey) || !is(objA[currentKey], objB[currentKey])) {
-			return false;
-		}
-	}
+  // A의 키를 기준으로, B의 키 유무를 판별하고 값을 비교한다.
+  for (let i = 0; i < keysA.length; i++) {
+    const currentKey = keysA[i];
+    if (!hasOwnProperty.call(objB, currentKey) || !is(objA[currentKey], objB[currentKey])) {
+      return false;
+    }
+  }
 
-	return true;
+  return true;
 }
 
 export default shallowEqual;
