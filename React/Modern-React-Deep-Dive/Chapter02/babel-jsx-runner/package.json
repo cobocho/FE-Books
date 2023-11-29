@@ -1,0 +1,18 @@
+{
+	"name": "babel-jsx-runner",
+	"version": "1.0.0",
+	"description": "babel jsx react 직접 확인해보기",
+	"main": "index.js",
+	"scripts": {
+		"start": "npx babel --plugins=@babel/plugin-transform-react-jsx index.js --out-file output.js"
+	},
+	"type": "module",
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@babel/cli": "^7.23.4",
+		"@babel/core": "^7.23.5",
+		"@babel/plugin-transform-react-jsx": "^7.23.4",
+		"@babel/preset-react": "^7.23.3"
+	}
+}
