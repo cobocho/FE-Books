@@ -1,0 +1,97 @@
+# 2. 타입
+
+isObject([0, 1, 2]);
+isObject(new RegExp("object"));
+isObject(() => {
+console.log("hello wolrd");
+});
+isObject(class Class {});
+
+// 그러나 원시 타입은 호환되지 않는다
+isObject(20); // false
+isObject("KG"); // false
+
+````
+
+타입스크립트에서 `object` 타입은 객체의 형식을 유지하는 모든 값을 할당 가능하다.
+
+### 2.4.2 {}
+
+```ts
+// 정상
+const noticePopup: { title: string; description: string } = {
+  title: "IE 지원 종료 안내",
+  description: "2022.07.15일부로 배민상회 IE 브라우저 지원을 종료합니다.",
+};
+
+// SyntaxError
+const noticePopup: { title: string; description: string } = {
+  title: "IE 지원 종료 안내",
+  description: "2022.07.15일부로 배민상회 IE 브라우저 지원을 종료합니다.",
+  startAt: "2022.07.15 10:00:00", // startAt은 지정한 타입에 존재하지 않으므로 오류
+};
+````
+
+`{}`는 싱글톤 객체를 바로 생성하는 객체 리터럴로서 선언된 구조와 일치해야하는데, 이는 `suppressExcessPropertyErrors` 설정에 따라 [초과 멤버에 대한 에러 체크가 달라진다.](https://www.cobocho.dev/post/typescript/structural-typing)
+
+### 2.4.3 array
+
+자바스크립트에서는 배열과 함수, 정규식 또한 객체로서 관리된다.
+허나 이러한 타입 시스템은 정적 타이핑과 맞지 않아 타입스크립트에서는 배열을 `Array` 타입으로 사용한다.
+
+```ts
+// Array<number>와 동일하다.
+const getCartList = async (cartId: number[]) => {
+  const res = await CartApi.GET_CART_LIST(cartId);
+  return res.getData();
+};
+
+getCartList([]); // (O) 빈 배열도 가능하다
+getCartList([1001]); // (O)
+getCartList([1001, 1002, 1003]); // (O) number 타입 원소 몇 개가 들어와도 상관없다
+getCartList([1001, '1002']); // (X) ‘1002’는 string 타입이므로 불가하다
+```
+
+### 2.4.4 type과 interface 키워드
+
+```ts
+type NoticePopupType = {
+  title: string;
+  description: string;
+};
+
+interface INoticePopup {
+  title: string;
+  description: string;
+}
+const noticePopup1: NoticePopupType = {
+  /* ... */
+};
+const noticePopup2: INoticePopup = {
+  /* ... */
+};
+```
+
+객체의 멤버 속성을 정의해주기 위해 `type`과 `interface`를 사용한다.
+
+### 2.4.5 function
+
+```ts
+type add = (a: number, b: number) => number;
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+```
+
+자바스크립트는 함수를 객체로 취급하지만 `typeof` 사용시 `function`을 반환한다.
+
+타입스크립트는 함수의 매개변수와 반환값에 타입을 명시할 수 있다.
+
+[^1]: 컴퓨터의 메모리를 차지한다.
+[^2]: Number와 Bigint. Bigint는 `2^53 - 1`보다 큰 숫자를 다룰 때 사용하는 객체이다.
+[^3]: V8 엔진 기준
+[^4]: 어떤 타입에 부합하는 변수와 메서드를 가질 경우 해당 타입에 속하는것으로 간주하는 방식이다. <br> "만약 어떤 새가 오리처럼 걷고, 헤엄치고 꽥꽥대면 나는 그 새를 오리라고 부를 것이다."
+[^5]: 덕타이핑은 동적 타이핑, 구조저 타이핑은 정적 타이핑에서 사용된다.
+[^6]: `|` 연산자를 사용한 타입 `ex) text: string | number`.
+[^7]: `any`는 모든 타입을 허용하는 타입이다.
